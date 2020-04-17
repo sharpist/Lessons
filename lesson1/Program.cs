@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Console;
 
@@ -40,7 +41,7 @@ class Program
             while ((line = await sr.ReadLineAsync()) != null) {
                 var sublines = line.Split(new char[] { ';', ' ', '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var subline in sublines)
-                    if (Double.TryParse(subline.Trim('a', 'b', '=', ';', ' '), out values[i]))
+                    if (Double.TryParse(Regex.Replace(subline, @"([^\d,.]*)", ""), out values[i]))
                         i++;
             }
         }
